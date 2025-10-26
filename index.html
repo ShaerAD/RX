@@ -3,442 +3,1236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RX若曦</title>
+    <title>加入</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Microsoft YaHei', sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #12c2e9, #c471ed, #f64f59);
+            background: linear-gradient(135deg, #a8d8ff 0%, #6ecbf5 100%);
+            color: #333;
+            line-height: 1.6;
             min-height: 100vh;
             padding: 20px;
-            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-100vh) rotate(180deg);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-200vh) rotate(360deg);
+                opacity: 0;
+            }
         }
         
         .container {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            padding: 40px;
-            text-align: center;
-            max-width: 500px;
+            max-width: 1200px;
             width: 100%;
             margin: 0 auto;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeUp 0.8s ease-out forwards;
         }
         
-        .logo {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #12a0e3, #0077e6);
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 50px;
+        @keyframes fadeUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        header {
+            background: linear-gradient(to right, rgba(18, 183, 245, 0.2), rgba(7, 112, 227, 0.2));
+            color: #1e3a8a;
+            padding: 60px 40px;
+            text-align: center;
+            border-bottom: 1px solid rgba(30, 58, 138, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
         }
         
         h1 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 28px;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #1e3a8a;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
         }
         
-        p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 30px;
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
         
-        .join-btn {
-            display: inline-block;
-            background: linear-gradient(to right, #12a0e3, #0077e6);
-            color: white;
-            padding: 16px 40px;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: bold;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0, 119, 230, 0.3);
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
+        header p {
+            font-size: 1.8rem;
+            color: #1e3a8a;
+            font-weight: 500;
+        }
+        
+        .content {
+            padding: 50px 40px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            color: #1e3a8a;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid rgba(30, 58, 138, 0.3);
             position: relative;
             overflow: hidden;
-            margin: 10px 5px;
         }
         
-        .join-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 119, 230, 0.4);
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: rgba(30, 58, 138, 0.7);
+            animation: slideIn 1s ease-out;
         }
         
-        .join-btn i {
-            margin-right: 10px;
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100px;
+            }
         }
         
-        .steps {
-            text-align: left;
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 25px;
+        .card {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 18px;
+            padding: 35px 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transform: translateX(-20px);
+            opacity: 0;
+            animation: slideInCard 0.6s ease-out forwards;
         }
         
-        .steps h3 {
-            margin-bottom: 10px;
-            color: #0077e6;
+        .card:nth-child(1) {
+            animation-delay: 0.2s;
         }
         
-        .steps ol {
-            padding-left: 20px;
+        .card:nth-child(2) {
+            animation-delay: 0.4s;
         }
         
-        .steps li {
+        @keyframes slideInCard {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .qq-icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: #1e3a8a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 25px;
+            font-size: 2.5rem;
+            color: white;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .qq-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        .qq-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .card-title {
+            font-size: 2rem;
+            color: #1e3a8a;
             margin-bottom: 8px;
-            color: #555;
+            line-height: 1.3;
         }
         
-        .custom-text {
-            margin-top: 25px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            border-left: 4px solid #0077e6;
+        .card-header p {
+            color: #1e3a8a;
+            font-size: 1.3rem;
+            opacity: 0.9;
         }
         
-        .custom-text h3 {
-            color: #0077e6;
-            margin-bottom: 10px;
-        }
-        
-        .custom-text-content {
-            color: #555;
+        .card-description {
+            color: #1e3a8a;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            flex-grow: 1;
             line-height: 1.6;
         }
         
-        .note {
-            margin-top: 25px;
-            font-size: 14px;
-            color: #888;
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 15px;
+            line-height: 1.4;
+            position: relative;
+            overflow: hidden;
         }
         
-        /* 更多按钮样式 */
-        .more-btn {
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: rgba(18, 183, 245, 0.3);
+            color: #1e3a8a;
+            border: 2px solid rgba(30, 58, 138, 0.5);
+        }
+        
+        .btn-primary:hover {
+            background: rgba(30, 58, 138, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 58, 138, 0.3);
+        }
+        
+        .btn-news {
+            background: rgba(46, 204, 113, 0.3);
+            color: #1e3a8a;
+            border: 2px solid rgba(30, 58, 138, 0.5);
+        }
+        
+        .btn-news:hover {
+            background: rgba(46, 204, 113, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+        
+        .btn i {
+            color: #1e3a8a;
+            margin-right: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .btn:hover i {
+            transform: scale(1.2);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #1e3a8a;
+            font-size: 1.2rem;
+            border-top: 1px solid rgba(30, 58, 138, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* 顶部按钮区域 */
+        .top-buttons {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: linear-gradient(to right, #6c5ce7, #a29bfe);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-size: 16px;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
-            transition: all 0.3s ease;
             z-index: 1000;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .top-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #1e3a8a;
+            font-size: 1.3rem;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .top-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+        
+        .clock-btn {
+            display: none;
+        }
+        
+        .clock-btn.active {
+            display: flex;
+        }
+        
+        .news-top-btn {
+            display: none;
+        }
+        
+        .news-top-btn.active {
+            display: flex;
+        }
+        
+        /* 设置菜单 */
+        .settings-menu {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            min-width: 200px;
+        }
+        
+        .settings-menu.active {
+            display: block;
+        }
+        
+        .settings-option {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+            color: #1e3a8a;
+            margin-bottom: 5px;
+        }
+        
+        .settings-option:hover {
+            background: rgba(30, 58, 138, 0.1);
+        }
+        
+        .settings-option:last-child {
+            margin-bottom: 0;
+        }
+        
+        .clock-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 25px;
+            background: #ccc;
+            border-radius: 25px;
+            transition: background 0.3s;
             cursor: pointer;
         }
         
-        .more-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+        .toggle-switch.active {
+            background: #1e3a8a;
         }
         
-        /* 下拉菜单 */
-        .dropdown {
-            position: fixed;
-            top: 60px;
-            right: 20px;
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 21px;
+            height: 21px;
             background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(25px);
+        }
+        
+        .language-options {
+            border-top: 1px solid rgba(30, 58, 138, 0.2);
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        
+        /* 时钟显示 */
+        .clock-display {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 15px 20px;
             border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            width: 180px;
-            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #1e3a8a;
+            font-size: 1.2rem;
+            font-weight: bold;
             display: none;
-            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
-        .dropdown-item {
-            padding: 12px 20px;
+        .clock-display.active {
             display: block;
-            color: #333;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid #f0f0f0;
         }
         
-        .dropdown-item:last-child {
-            border-bottom: none;
-        }
-        
-        .dropdown-item:hover {
-            background: #f8f9fa;
-            color: #0077e6;
-        }
-        
-        /* 下载中心模态框 */
-        .download-modal {
+        /* 完整的时钟页面样式 */
+        .clock-page {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background: linear-gradient(135deg, #1e3a8a 0%, #6ecbf5 100%);
             z-index: 2000;
-            justify-content: center;
             align-items: center;
-        }
-        
-        .download-content {
-            background-color: white;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 800px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
-        
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #777;
-        }
-        
-        .close-btn:hover {
-            color: #333;
-        }
-        
-        .download-title {
-            color: #0077e6;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 24px;
-        }
-        
-        /* 文件列表样式 */
-        .file-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .file-item {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            border-left: 4px solid #0077e6;
-            transition: all 0.3s ease;
-        }
-        
-        .file-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .file-name {
-            font-weight: bold;
-            color: #0077e6;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        
-        .file-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .download-btn {
-            display: inline-block;
-            background: linear-gradient(to right, #12a0e3, #0077e6);
+            justify-content: center;
+            flex-direction: column;
             color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 16px;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0, 119, 230, 0.3);
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            width: 100%;
             text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
         
-        .download-btn:hover {
+        .clock-page.active {
+            display: flex;
+            opacity: 1;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .clock-page .clock-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 400px;
+            height: 400px;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            animation: pulseClock 2s infinite alternate;
+        }
+        
+        @keyframes pulseClock {
+            from {
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            }
+            to {
+                transform: scale(1.05);
+                box-shadow: 0 0 50px rgba(255, 255, 255, 0.4);
+            }
+        }
+        
+        .clock-page .clock-face {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            height: 90%;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .clock-page .hour-hand, .clock-page .minute-hand, .clock-page .second-hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            border-radius: 10px;
+            transition: transform 0.5s cubic-bezier(0.4, 2.3, 0.8, 1);
+        }
+        
+        .clock-page .hour-hand {
+            width: 8px;
+            height: 30%;
+            background: #ff9f43;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        
+        .clock-page .minute-hand {
+            width: 6px;
+            height: 40%;
+            background: #2e86de;
+            transform: translateX(-50%);
+            z-index: 20;
+        }
+        
+        .clock-page .second-hand {
+            width: 2px;
+            height: 45%;
+            background: #ee5253;
+            transform: translateX(-50%);
+            z-index: 30;
+        }
+        
+        .clock-page .center-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            z-index: 40;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        .clock-page .clock-number {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .clock-page .digital-clock {
+            margin-top: 40px;
+            font-size: 3rem;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            }
+            to {
+                box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+            }
+        }
+        
+        .clock-page .back-btn {
+            margin-top: 30px;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .clock-page .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .clock-page .back-btn:hover::before {
+            left: 100%;
+        }
+        
+        .clock-page .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 119, 230, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
         }
         
-        .download-btn i {
-            margin-right: 8px;
+        .clock-page .clock-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            animation: bounce 2s infinite;
         }
         
-        /* 响应式设计 */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        /* 新闻页面样式 */
+        .news-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3a8a 0%, #6ecbf5 100%);
+            z-index: 2000;
+            padding: 40px;
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .news-page.active {
+            display: block;
+            opacity: 1;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .news-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .news-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: white;
+            animation: none;
+        }
+        
+        .news-header p {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .news-item {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .news-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .news-item h3 {
+            color: #1e3a8a;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .news-content {
+            color: #1e3a8a;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .news-image {
+            width: 100%;
+            border-radius: 12px;
+            margin: 15px 0;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .back-btn {
+            margin-top: 30px;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .back-btn:hover::before {
+            left: 100%;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+        
         @media (max-width: 768px) {
-            .file-list {
-                grid-template-columns: 1fr;
+            body {
+                padding: 15px;
             }
             
-            .download-content {
-                width: 95%;
+            header {
+                padding: 40px 20px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            header p {
+                font-size: 1.4rem;
+            }
+            
+            .content {
+                padding: 25px 20px;
+                gap: 25px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+            
+            .card {
+                padding: 25px 20px;
+            }
+            
+            .card-header {
+                margin-bottom: 20px;
+            }
+            
+            .qq-icon {
+                width: 70px;
+                height: 70px;
+                margin-right: 18px;
+                font-size: 1.8rem;
+            }
+            
+            .card-title {
+                font-size: 1.5rem;
+            }
+            
+            .card-header p {
+                font-size: 1rem;
+            }
+            
+            .card-description {
+                font-size: 1rem;
+                margin-bottom: 20px;
+            }
+            
+            .btn {
+                padding: 14px;
+                font-size: 1.1rem;
+                margin-top: 10px;
+            }
+            
+            footer {
                 padding: 20px;
+                font-size: 0.9rem;
+            }
+            
+            .news-page {
+                padding: 20px;
+            }
+            
+            .news-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .clock-display {
+                top: 80px;
+                right: 15px;
+                font-size: 1rem;
+                padding: 10px 15px;
+            }
+            
+            .top-buttons {
+                top: 15px;
+                right: 15px;
+            }
+            
+            .top-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+            
+            .clock-page .clock-container {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .clock-page .digital-clock {
+                font-size: 2rem;
+                padding: 15px 30px;
+            }
+            
+            .clock-page .clock-title {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
+    <div class="bubbles" id="bubbles"></div>
+    
+    <!-- 顶部按钮区域 -->
+    <div class="top-buttons">
+        <!-- 外援新闻按钮 -->
+        <button class="top-btn news-top-btn" id="newsTopBtn" title="外援">
+            <i class="fas fa-newspaper"></i>
+        </button>
+        
+        <!-- 时钟按钮 -->
+        <button class="top-btn clock-btn" id="clockTopBtn" title="时钟">
+            <i class="fas fa-clock"></i>
+        </button>
+        
+        <!-- 设置按钮 -->
+        <button class="top-btn" id="settingsBtn" title="设置">
+            <i class="fas fa-cog"></i>
+        </button>
+        
+        <!-- 设置菜单 -->
+        <div class="settings-menu" id="settingsMenu">
+            <div class="settings-option clock-toggle">
+                <span data-key="enableClock">启用时钟</span>
+                <div class="toggle-switch" id="clockToggle">
+                    <div class="toggle-slider"></div>
+                </div>
+            </div>
+            <div class="settings-option clock-toggle">
+                <span data-key="enableNews">显示外援按钮</span>
+                <div class="toggle-switch" id="newsToggle">
+                    <div class="toggle-slider"></div>
+                </div>
+            </div>
+            <div class="language-options">
+                <div class="settings-option" data-lang="zh-CN">简体中文</div>
+                <div class="settings-option" data-lang="zh-TW">繁體中文</div>
+                <div class="settings-option" data-lang="en">English</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 时钟显示 -->
+    <div class="clock-display" id="clockDisplay"></div>
+    
+    <!-- 主页面 -->
     <div class="container">
-        <div class="logo">
-            <i class="fab fa-qq"></i>
-        </div>
-        <h1>加入RX(若曦)</h1>
-        <p>点击下方按钮加入我们的QQ群</p>
+        <header>
+            <h1 data-key="title">加入我们</h1>
+            <p data-key="subtitle">QQ@QQ</p>
+        </header>
         
-        <div class="btn-container">
-            <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=OPJfJCXr1UugqJZXz%2F4p7LdbYwTUyOgugeTTOShJT0MMWvHtRYKX1UYEbyPF%2BjZf&busi_data=eyJncm91cENvZGUiOiIyMTU0NDg4MTMiLCJ0b2tlbiI6IjIzNEdlc1ZFdC9aZStBMzNIMlpxWU1BaHFoNzgzM2Q2QjVBYmlkU1hjbkxEK3M4cUhYN3pNVjdRaGdubkxsTm4iLCJ1aW4iOiIyMDg0NDU5NjA4In0%3D&data=oKFhQgX7xxoUGQBUSeeKQzkQ52WGheEANml_-xRt374h3pQeEFkoubcqLVKhyDXDGcCRVG86nt5TCoff9JgSPQ&svctype=4&tempid=h5_group_info" class="join-btn">
-                <i class="fab fa-qq"></i>点击加入QQ群
-            </a>
-        </div>
-        
-        <div class="steps">
-            <h3></h3>
-            <ol>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ol>
-        </div>
-        
-        <!-- 自定义文字区域 -->
-        <div class="custom-text">
-            <h3>更多内容</h3>
-            <div class="custom-text-content">
-                C.P.C @Shaer
+        <div class="content">
+            <div class="community-section">
+                <h2 class="section-title" data-key="groupInfo">群信息</h2>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="qq-icon">
+                            <img src="https://youke1.picui.cn/s1/2025/10/26/68fdae078ca5f.jpg" alt="QQ群图标">
+                        </div>
+                        <div>
+                            <h2 class="card-title">RX若曦</h2>
+                            <p data-key="welcome">❌欢迎加入</p>
+                        </div>
+                    </div>
+                    
+                    <p class="card-description" data-key="joinDesc">
+                        ↓点击加入
+                    </p>
+                    
+                    <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=ziDyasscQ%2FCYeW4WpSIHBjA8UCXtlJuzSgAzKWHuEgTHYot058BbG4GoiF%2BV1WCl&busi_data=eyJncm91cENvZGUiOiIyMTU0NDg4MTMiLCJ0b2tlbiI6IjE0WTgyNUI5UjdMVUwrZlpac2c4OUF2c1dJVTBzeWRFVjYrc1RFNThqck9HQTl3ZXFtUlNzSUk5cVZmMDk0TzUiLCJ1aW4iOiIyMDg0NDU5NjA4In0%3D&data=6Usrt9WboD-3cP0tV5Bs6ju6XEaujcICRzsRITnNq_bF6i6Eue-wZadszrc3UEPMV1mm6hpAlxbaq4bITtO9cg&svctype=4&tempid=h5_group_info" class="btn btn-primary" target="_blank">
+                        <i class="fab fa-qq"></i> <span data-key="joinBtn">加入QQ群</span>
+                    </a>
+                </div>
             </div>
         </div>
         
-        <p class="note">注意：您需要安装QQ客户端才能成功加入群聊</p>
+        <footer>
+            <p data-key="footer">© 1990 RX</p>
+        </footer>
     </div>
 
-    <!-- 更多按钮 -->
-    <div class="more-btn" id="moreBtn">
-        <i class="fas fa-ellipsis-h"></i> 更多
-    </div>
-    
-    <!-- 下拉菜单 -->
-    <div class="dropdown" id="dropdownMenu">
-        <a href="#" class="dropdown-item"><i class="fas fa-users"></i> 关于我们</a>
-        <a href="#" class="dropdown-item"><i class="fas fa-question-circle"></i> 帮助中心</a>
-        <a href="#" class="dropdown-item" id="downloadsLink"><i class="fas fa-download"></i> 下载文件</a>
-        <a href="#" class="dropdown-item"><i class="fas fa-envelope"></i> 联系我们</a>
-    </div>
-    
-    <!-- 下载中心模态框 -->
-    <div class="download-modal" id="downloadModal">
-        <div class="download-content">
-            <span class="close-btn" id="closeDownloadModal">&times;</span>
-            <h2 class="download-title">文件下载中心</h2>
-            <p>以下是可供下载的资源文件，点击下载按钮即可获取</p>
-            
-            <div class="file-list">
-                <!-- 文件项目将在这里动态生成 -->
+    <!-- 时钟页面 -->
+    <div class="clock-page" id="clockPage">
+        <h1 class="clock-title">时钟</h1>
+        <div class="clock-container">
+            <div class="clock-face">
+                <div class="clock-number" style="top: 10%; left: 50%; transform: translateX(-50%);">12</div>
+                <div class="clock-number" style="top: 50%; right: 10%; transform: translateY(-50%);">3</div>
+                <div class="clock-number" style="bottom: 10%; left: 50%; transform: translateX(-50%);">6</div>
+                <div class="clock-number" style="top: 50%; left: 10%; transform: translateY(-50%);">9</div>
+                
+                <div class="hour-hand" id="fullHourHand"></div>
+                <div class="minute-hand" id="fullMinuteHand"></div>
+                <div class="second-hand" id="fullSecondHand"></div>
+                
+                <div class="center-circle"></div>
             </div>
         </div>
+        
+        <div class="digital-clock" id="fullDigitalClock"></div>
+        
+        <button class="back-btn" id="backFromFullClock">
+            <i class="fas fa-arrow-left"></i> <span data-key="backBtn">返回首页</span>
+        </button>
+    </div>
+
+    <!-- 新闻 -->
+    <div class="news-page" id="newsPage">
+        <div class="news-header">
+            <h1>外援</h1>
+            <p>消息和公告</p>
+        </div>
+        
+        <div id="newsContainer">
+            <div class="news-item">
+                <h3>重要通知</h3>
+                <p class="news-content">我们之中有内鬼</p>
+                <img src="https://youke1.picui.cn/s1/2025/10/26/68fdce8325158.jpg" alt="图片" class="news-image">
+            </div>
+
+            <!-- 在这里添加新新闻 -->
+            <!-- 复制下面的代码块来添加新新闻 -->
+            <!--
+            <div class="news-item">
+                <h3>您的新闻标题</h3>
+                <p class="news-content">您的新闻内容描述</p>
+                <img src="您的图片链接" alt="新闻图片" class="news-image">
+            </div>
+            -->
+        </div>
+        
+        <button class="back-btn" id="backFromNews">
+            <i class="fas fa-arrow-left"></i> <span data-key="backBtn">返回首页</span>
+        </button>
     </div>
 
     <script>
-        // 显示/隐藏下拉菜单
-        document.getElementById('moreBtn').addEventListener('click', function() {
-            const dropdown = document.getElementById('dropdownMenu');
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-        });
-
-        // 点击下载文件链接
-        document.getElementById('downloadsLink').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('dropdownMenu').style.display = 'none';
-            document.getElementById('downloadModal').style.display = 'flex';
-        });
-
-        // 关闭下载模态框
-        document.getElementById('closeDownloadModal').addEventListener('click', function() {
-            document.getElementById('downloadModal').style.display = 'none';
-        });
-
-        // 点击模态框外部关闭
-        document.getElementById('downloadModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.style.display = 'none';
+        const translations = {
+            'zh-CN': {
+                'title': '加入我们',
+                'subtitle': 'QQ@QQ',
+                'groupInfo': '群信息',
+                'welcome': '❌欢迎加入',
+                'joinDesc': '↓点击加入',
+                'joinBtn': '加入QQ群',
+                'footer': '© 1990 RX',
+                'backBtn': '返回首页',
+                'enableClock': '启用时钟',
+                'enableNews': '显示外援按钮'
+            },
+            'zh-TW': {
+                'title': '加入我們',
+                'subtitle': 'QQ@QQ',
+                'groupInfo': '群信息',
+                'welcome': '❌歡迎加入',
+                'joinDesc': '↓點擊加入',
+                'joinBtn': '加入QQ群',
+                'footer': '© 1990 RX',
+                'backBtn': '返回首頁',
+                'enableClock': '啟用時鐘',
+                'enableNews': '顯示外援按鈕'
+            },
+            'en': {
+                'title': 'Join Us',
+                'subtitle': 'QQ@QQ',
+                'groupInfo': 'Group Info',
+                'welcome': '❌Welcome to Join',
+                'joinDesc': '↓Click to Join',
+                'joinBtn': 'Join QQ Group',
+                'footer': '© 1990 RX',
+                'backBtn': 'Back to Home',
+                'enableClock': 'Enable Clock',
+                'enableNews': 'Show News Button'
             }
-        });
+        };
 
-        // 模拟的文件数据
-        const fileData = [
-            { name: "car parking正版", version: "v4.9.4", date: "2025 9 14", base64: "UEsDBBQAAAAIA..." },
-            { name: "暂无", version: "v1", date: "1", base64: "UEsDBBQAAAAIA..." },
-            { name: "暂无", version: "v1", date: "1", base64: "UEsDBBQAAAAIA..." },
-            { name: "暂无", version: "v1", date: "1", base64: "UEsDBBQAAAAIA..." },
-            { name: "暂无", version: "v1", date: "1", base64: "UEsDBBQAAAAIA..." },
-             { name: "暂无", version: "v1", date: "1", base64: "UEsDBBQAAAAIA..." },
-             { name: "暂无", version: "v1", date: "1", base64: "UEsDBBQAAAAIA..." },
-             { name: "暂无", version: "v1", date: "1", base64: "UEsDBBQAAAAIA..." },
-             { name: "暂无", version: "v1", date: "1", base64: "UEsDBBQAAAAIA..." },
-             { name: "暂无", version: "v1", date: "1", base64: "UEsDBBQAAAAIA..." },
-        ];
+        let currentLanguage = 'zh-CN';
+        let clockEnabled = false;
+        let newsEnabled = false;
 
-        // 动态生成文件列表
-        const fileList = document.querySelector('.file-list');
-        fileData.forEach(file => {
-            const fileItem = document.createElement('div');
-            fileItem.className = 'file-item';
-            fileItem.innerHTML = `
-                <div class="file-name">${file.name}</div>
-                <div class="file-meta">
-                    <span>版本: ${file.version}</span>
-                    <span>上传: ${file.date}</span>
-                </div>
-                <button class="download-btn" data-base64="${file.base64}" data-filename="${file.name}-${file.version}.zip">
-                    <i class="fas fa-download"></i> 下载文件
-                </button>
-            `;
-            fileList.appendChild(fileItem);
-        });
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
 
-        // 添加下载功能
-        document.querySelectorAll('.download-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const base64Data = this.getAttribute('data-base64');
-                const fileName = this.getAttribute('data-filename');
+        function toggleClock() {
+            clockEnabled = !clockEnabled;
+            const clockToggle = document.getElementById('clockToggle');
+            const clockDisplay = document.getElementById('clockDisplay');
+            const clockTopBtn = document.getElementById('clockTopBtn');
+            
+            if (clockEnabled) {
+                clockToggle.classList.add('active');
+                clockDisplay.classList.add('active');
+                clockTopBtn.classList.add('active');
+            } else {
+                clockToggle.classList.remove('active');
+                clockDisplay.classList.remove('active');
+                clockTopBtn.classList.remove('active');
+            }
+        }
+
+        function toggleNews() {
+            newsEnabled = !newsEnabled;
+            const newsToggle = document.getElementById('newsToggle');
+            const newsTopBtn = document.getElementById('newsTopBtn');
+            
+            if (newsEnabled) {
+                newsToggle.classList.add('active');
+                newsTopBtn.classList.add('active');
+            } else {
+                newsToggle.classList.remove('active');
+                newsTopBtn.classList.remove('active');
+            }
+        }
+
+        function createBubbles() {
+            const bubblesContainer = document.getElementById('bubbles');
+            const bubbleCount = 15;
+            
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
                 
-                // 创建下载链接
-                const link = document.createElement('a');
-                link.href = 'data:application/zip;base64,' + base64Data;
-                link.download = fileName;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                const size = Math.random() * 100 + 50;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
                 
-                // 显示下载成功提示
-                alert(`文件 ${fileName} 下载成功！`);
+                bubble.style.left = `${Math.random() * 100}%`;
+                
+                bubble.style.animationDelay = `${Math.random() * 15}s`;
+                bubble.style.animationDuration = `${15 + Math.random() * 10}s`;
+                
+                bubblesContainer.appendChild(bubble);
+            }
+        }
+        
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            if (clockEnabled) {
+                document.getElementById('clockDisplay').textContent = `${hours}:${minutes}:${seconds}`;
+            }
+            
+            // 更新完整时钟页面
+            const fullDigitalClock = document.getElementById('fullDigitalClock');
+            if (fullDigitalClock) {
+                fullDigitalClock.textContent = `${hours}:${minutes}:${seconds}`;
+            }
+            
+            const fullHourHand = document.getElementById('fullHourHand');
+            const fullMinuteHand = document.getElementById('fullMinuteHand');
+            const fullSecondHand = document.getElementById('fullSecondHand');
+            
+            if (fullHourHand && fullMinuteHand && fullSecondHand) {
+                const hour = now.getHours() % 12;
+                const minute = now.getMinutes();
+                const second = now.getSeconds();
+                
+                const hourDeg = (hour * 30) + (minute * 0.5);
+                const minuteDeg = (minute * 6) + (second * 0.1);
+                const secondDeg = second * 6;
+                
+                fullHourHand.style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+                fullMinuteHand.style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+                fullSecondHand.style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+            }
+        }
+        
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsMenu = document.getElementById('settingsMenu');
+        const newsTopBtn = document.getElementById('newsTopBtn');
+        const clockTopBtn = document.getElementById('clockTopBtn');
+        const backFromNews = document.getElementById('backFromNews');
+        const backFromFullClock = document.getElementById('backFromFullClock');
+        const newsPage = document.getElementById('newsPage');
+        const clockPage = document.getElementById('clockPage');
+        const clockToggle = document.getElementById('clockToggle');
+        const newsToggle = document.getElementById('newsToggle');
+        const languageOptions = document.querySelectorAll('.language-options .settings-option');
+        
+        settingsBtn.addEventListener('click', function() {
+            settingsMenu.classList.toggle('active');
+        });
+        
+        newsTopBtn.addEventListener('click', function() {
+            newsPage.classList.add('active');
+        });
+        
+        clockTopBtn.addEventListener('click', function() {
+
+            clockPage.classList.add('active');
+        });
+        
+        backFromNews.addEventListener('click', function() {
+            newsPage.classList.remove('active');
+        });
+        
+        backFromFullClock.addEventListener('click', function() {
+            clockPage.classList.remove('active');
+        });
+        
+        clockToggle.addEventListener('click', function() {
+            toggleClock();
+        });
+        
+        newsToggle.addEventListener('click', function() {
+            toggleNews();
+        });
+        
+        languageOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                changeLanguage(lang);
+                settingsMenu.classList.remove('active');
             });
         });
+        
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.top-buttons')) {
+                settingsMenu.classList.remove('active');
+            }
+        });
+       
+        createBubbles();
+        updateTime();
+        setInterval(updateTime, 1000);
     </script>
 </body>
 </html>
